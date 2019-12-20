@@ -1,0 +1,15 @@
+.root{
+    -fx-background-color:  #7a0052;
+
+}
+.button{
+    -fx-background-color:  #906;
+    -fx-font-size: 13px;
+    -fx-background-insets: 0,9 9 8 9,9,10,11;
+    -fx-background-radius: 40;
+    -fx-padding: 15 30 15 30;
+}
+.welcomeLabel .label{
+    -fx-font-size: 25px;
+    -fx-font-family: 'Arial Rounded MT Bold';
+}

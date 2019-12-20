@@ -19,14 +19,14 @@ public class LoginController {
     private TextField password;
 
     @FXML
-    private Button btn1;
+    private Button signInBtn;
 
     @FXML
-    private Button register;
+    private Button signUpBtn;
 
     @FXML
     void initialize(){
-        btn1.setOnAction(event ->{
+        signInBtn .setOnAction(event ->{
             String loginText = username.getText().trim();
             String loginPassword = password.getText().trim();
 
@@ -38,8 +38,8 @@ public class LoginController {
             }
 
         });
-        register.setOnAction(event ->{
-            register.getScene().getWindow().hide();
+        signUpBtn.setOnAction(event ->{
+            signUpBtn.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/fxml/signUpPage.fxml"));
             try {
