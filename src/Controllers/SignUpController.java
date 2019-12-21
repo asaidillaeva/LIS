@@ -1,6 +1,7 @@
 package Controllers;
 
 import DB.DataBaseHandler;
+import Model.Member;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,10 +40,13 @@ public class SignUpController {
     private RadioButton femaleRadioButton;
 
     @FXML
-    private TextField phoneNumber;
+    private TextField phoneNumberTextField;
 
     @FXML
     private PasswordField passwordField;
+
+    @FXML
+    private TextField addressTextField;
 
     @FXML
     private Label welcomeLabel;
@@ -53,15 +57,22 @@ public class SignUpController {
 
     @FXML
     void initialize(){
-        DataBaseHandler dbHandler = new DataBaseHandler();
-
         signUpBtn.setOnAction(event ->{
-            dbHandler.signUpUser(firstnameTextField.getText(), lastnameTextField.getText(),
-                    usernameTextField.getText(), passwordField.getText(),
-                    "Male", phoneNumber.getText());
-            System.out.println("run");
+            signUpNewMember();
         });
 
     }
 
+    private void signUpNewMember(){
+        DataBaseHandler dbHandler = new DataBaseHandler();
+
+        String firstName = firstnameTextField.getText();
+        String lastName = lastnameTextField.getText();
+        String username = usernameTextField.getText();
+        String password = passwordField.getText();
+        String address = addressTextField.getText();
+        String phoneNumber = phoneNumberTextField.getText();
+        Member member = new Member(firstName, lastName, username, password, address, phoneNumber);
+        dbHandler.signUpUser(member);
+    }
 }

@@ -1,5 +1,8 @@
 package Controllers;
 
+import DB.DataBaseHandler;
+import Model.Member;
+import com.sun.net.httpserver.Authenticator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,8 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+import java.sql.ResultSet;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class LoginController {
 
@@ -30,7 +34,7 @@ public class LoginController {
             String loginText = username.getText().trim();
             String loginPassword = password.getText().trim();
 
-            if(!loginPassword.equals("") && !loginPassword.equals("")){
+            if(!loginText.equals("") && !loginPassword.equals("")){
                 loginUser(loginText, loginPassword);
             }
             else{
@@ -61,7 +65,29 @@ public class LoginController {
         userPassAnim.playAnim();
     }
 
-    private void loginUser(String loginText, String loginPassword) {
+    private void loginUser(String loginUser, String loginPassword) {
+        DataBaseHandler dbHandler = new DataBaseHandler();
+        Member member = new Member();
+        member.setUsername(loginUser);
+        member.setPassword(loginPassword);
+        dbHandler.getUser(member);
+        ResultSet result = dbHandler.getUser(member);
+
+        int counter = 0;
+
+        while (true){
+            try {
+                if (!result.next()) break;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            counter++;
+        }
+        if(counter>=1){
+            System.out.println("Success");
+        }else{
+            animation();
+        }
 
     }
 
