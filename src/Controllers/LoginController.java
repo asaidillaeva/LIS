@@ -45,7 +45,7 @@ public class LoginController {
             try {
                 loader.load();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
             Parent root = loader.getRoot();
             Stage stage = new Stage();
@@ -62,6 +62,7 @@ public class LoginController {
     }
 
     private void loginUser(String loginText, String loginPassword) {
+
     }
 
 }
