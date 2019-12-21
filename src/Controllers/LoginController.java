@@ -4,17 +4,12 @@ import DB.DataBaseHandler;
 import Model.Member;
 import com.sun.net.httpserver.Authenticator;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import java.sql.ResultSet;
-import java.io.IOException;
 import java.sql.SQLException;
 
-public class LoginController {
+public class LoginController extends Methods {
 
     @FXML
     private TextField username;
@@ -38,32 +33,17 @@ public class LoginController {
                 loginUser(loginText, loginPassword);
             }
             else{
-                animation();
+                animation(username,password);
             }
 
         });
         signUpBtn.setOnAction(event ->{
             signUpBtn.getScene().getWindow().hide();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/fxml/signUpPage.fxml"));
-            try {
-                loader.load();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-            Parent root = loader.getRoot();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
+            openWindow("/fxml/signUpPage.fxml");
         });
     }
 
-    private void animation() {
-        Shake userLoginAnim = new Shake(username);
-        Shake userPassAnim = new Shake(password);
-        userLoginAnim.playAnim();
-        userPassAnim.playAnim();
-    }
+
 
     private void loginUser(String loginUser, String loginPassword) {
         DataBaseHandler dbHandler = new DataBaseHandler();
@@ -84,9 +64,10 @@ public class LoginController {
             counter++;
         }
         if(counter>=1){
-            System.out.println("Success");
+            signUpBtn.getScene().getWindow().hide();
+            openWindow("/fxml/homePage.fxml");
         }else{
-            animation();
+            animation(username, password);
         }
 
     }

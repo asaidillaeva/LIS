@@ -3,20 +3,15 @@ package Controllers;
 import DB.DataBaseHandler;
 import Model.Member;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 
-public class SignUpController {
+public class SignUpController extends Methods {
 
     @FXML
     private Button signUpBtn;
@@ -60,6 +55,10 @@ public class SignUpController {
         signUpBtn.setOnAction(event ->{
             signUpNewMember();
         });
+        signInBtn.setOnAction(event -> {
+            signInBtn.getScene().getWindow().hide();
+            openWindow("fxml/loginPage.fxml");
+        });
 
     }
 
@@ -75,4 +74,6 @@ public class SignUpController {
         Member member = new Member(firstName, lastName, username, password, address, phoneNumber);
         dbHandler.signUpUser(member);
     }
+
+
 }

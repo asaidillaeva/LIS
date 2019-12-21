@@ -10,4 +10,5 @@ public class Constant {
     public static final String USER_PASSWORD = "password";
     public static final String USER_ADDRESS = "address";
     public static final String USER_NUMBER = "phoneNumber";
+
 }
