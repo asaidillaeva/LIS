@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class BookAdminController extends Methods {
+public class AdminBookController extends Methods {
 
     @FXML
     private ImageView backIcon;

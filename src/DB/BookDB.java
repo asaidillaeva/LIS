@@ -3,9 +3,8 @@ package DB;
 import Model.Books;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import static java.lang.Integer.parseInt;
 
 public class BookDB extends DBConnection {
 
@@ -30,5 +29,30 @@ public class BookDB extends DBConnection {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+    public ResultSet getBook(String title){
+        ResultSet resset = null;
+
+        String select = "SELECT * FROM " + Constant.BOOK_TABLE + " WHERE " +
+                Constant.TITLE+ " =?";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(select);
+            prSt.setString(1, title);
+
+            resset = prSt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return resset;
+    }
+
+    public void editBook(){
+
+    }
+
+    public void removeBook(){
+
     }
 }

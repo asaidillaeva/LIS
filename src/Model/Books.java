@@ -20,6 +20,10 @@ public class Books {
         this.numOfBook = numOfBook;
     }
 
+    public Books() {
+
+    }
+
     public void setPrice(int price) {
         this.price = price;
     }

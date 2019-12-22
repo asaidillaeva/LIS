@@ -28,7 +28,7 @@ public class HomePageController extends Methods {
     }
 
     public void bookPressed() {
-        openWindow(booksBtn, "/fxml/bookFxml.fxml");
+        openWindow(booksBtn, "/fxml/userBookFxml.fxml");
     }
 
 

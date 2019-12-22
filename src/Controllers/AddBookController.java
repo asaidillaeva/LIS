@@ -1,12 +1,14 @@
 package Controllers;
 
 import DB.BookDB;
-import DB.MemberDB;
 import Model.Books;
-import Model.Member;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import static java.lang.Integer.parseInt;
 
@@ -34,8 +36,33 @@ public class AddBookController extends Methods {
     private Button addBtn;
 
     @FXML
-    private Button backBtn;
+    private Button editBtn;
 
+    @FXML
+    private TextField titleLine;
+
+    @FXML
+    private TextField authorLine;
+
+    @FXML
+    private TextField priceLine;
+
+    @FXML
+    private TextField editionLine;
+
+    @FXML
+    private TextField subjectLine;
+
+    @FXML
+    private TextField numLine;
+
+    @FXML
+    private TextField statusLine;
+
+    @FXML
+    void backPressed(MouseEvent event) {
+        openWindow(addBtn,"/fxml/adminBook.fxml");
+    }
     @FXML
     void initialize(){
         addBtn.setOnAction(event ->{
@@ -58,10 +85,10 @@ public class AddBookController extends Methods {
         String title = titleText.getText();
         String author = authorText.getText();
         String edtion = editionText.getText();
-        int numOfBook =parseInt(numText.getText());
+        int numOfBook = parseInt(numText.getText());
         int price = parseInt(priceText.getText());
         String subject = subjectText.getText();
-        Books book = new Books(title, author, edtion,numOfBook, price, subject );
+        Books book = new Books(title, author, edtion, numOfBook, price, subject);
         dbHandler.addBook(book);
 
     }
