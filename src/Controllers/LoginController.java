@@ -1,8 +1,7 @@
 package Controllers;
 
-import DB.DataBaseHandler;
+import DB.MemberDB;
 import Model.Member;
-import com.sun.net.httpserver.Authenticator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -38,15 +37,14 @@ public class LoginController extends Methods {
 
         });
         signUpBtn.setOnAction(event ->{
-            signUpBtn.getScene().getWindow().hide();
-            openWindow("/fxml/signUpPage.fxml");
+            openWindow(signInBtn,"/fxml/signUpPage.fxml");
         });
     }
 
 
 
     private void loginUser(String loginUser, String loginPassword) {
-        DataBaseHandler dbHandler = new DataBaseHandler();
+        MemberDB dbHandler = new MemberDB();
         Member member = new Member();
         member.setUsername(loginUser);
         member.setPassword(loginPassword);
@@ -64,8 +62,11 @@ public class LoginController extends Methods {
             counter++;
         }
         if(counter>=1){
-            signUpBtn.getScene().getWindow().hide();
-            openWindow("/fxml/homePage.fxml");
+            if(username.getText().trim().equals("aliiaAdmin12345")){
+                openWindow(signInBtn, "/fxml/adminBook.fxml");
+            }else {
+                openWindow(signInBtn, "/fxml/homePage.fxml");
+            }
         }else{
             animation(username, password);
         }

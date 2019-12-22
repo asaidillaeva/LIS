@@ -1,14 +1,12 @@
 package Controllers;
 
-import DB.DataBaseHandler;
+import DB.MemberDB;
 import Model.Member;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 
 
 public class SignUpController extends Methods {
@@ -24,16 +22,6 @@ public class SignUpController extends Methods {
 
     @FXML
     private TextField usernameTextField;
-
-    @FXML
-    private RadioButton MaleRadioButton;
-
-    @FXML
-    private ToggleGroup genderToggle;
-
-    @FXML
-    private RadioButton femaleRadioButton;
-
     @FXML
     private TextField phoneNumberTextField;
 
@@ -53,17 +41,24 @@ public class SignUpController extends Methods {
     @FXML
     void initialize(){
         signUpBtn.setOnAction(event ->{
-            signUpNewMember();
+            if(!firstnameTextField.equals("") && !lastnameTextField.equals("") &&
+                    !usernameTextField.equals("") && !passwordField.equals("") &&
+                    !phoneNumberTextField.equals("") && !addressTextField.equals("")
+            ){
+                signUpNewMember();
+            } else{
+                animation(firstnameTextField,lastnameTextField);
+                animation(usernameTextField, passwordField);
+                animation(phoneNumberTextField, addressTextField);
+            }
         });
         signInBtn.setOnAction(event -> {
-            signInBtn.getScene().getWindow().hide();
-            openWindow("fxml/loginPage.fxml");
+            openWindow(signInBtn,"/fxml/loginPage.fxml");
         });
-
     }
 
     private void signUpNewMember(){
-        DataBaseHandler dbHandler = new DataBaseHandler();
+        MemberDB dbHandler = new MemberDB();
 
         String firstName = firstnameTextField.getText();
         String lastName = lastnameTextField.getText();
