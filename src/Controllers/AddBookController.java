@@ -7,9 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import static java.lang.Integer.parseInt;
 
 public class AddBookController extends Methods {
@@ -61,7 +58,7 @@ public class AddBookController extends Methods {
 
     @FXML
     void backPressed(MouseEvent event) {
-        openWindow(addBtn,"/fxml/adminBook.fxml");
+        openWindow(addBtn, "/fxml/adminBook.fxml");
     }
     @FXML
     void initialize(){

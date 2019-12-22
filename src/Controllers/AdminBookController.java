@@ -45,7 +45,7 @@ public class AdminBookController extends Methods {
 
     @FXML
     void iconPressed(MouseEvent event) {
-        openWindow(noneBtn,"/fxml/loginPage.fxml");
+        openWindow(noneBtn, "/fxml/loginPage.fxml");
     }
 
     @FXML

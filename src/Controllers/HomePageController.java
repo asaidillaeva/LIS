@@ -3,7 +3,7 @@ package Controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class HomePageController extends Methods {
+public class HomePageController extends Methods{
 
     @FXML
     private Button backBtn;
@@ -33,7 +33,7 @@ public class HomePageController extends Methods {
 
 
     public void backPressed() {
-        openWindow(backBtn,"/fxml/loginPage.fxml");
+        openWindow(backBtn, "/fxml/loginPage.fxml");
     }
 
     public void infoPressed() { openWindow(infoBtn, "/fxml/infoPage.fxml");

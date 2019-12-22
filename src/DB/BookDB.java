@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class BookDB extends DBConnection {
+public class BookDB extends DBConnection{
 
     public void addBook(Books book){
         String insert = "INSERT "  + Constant.BOOK_TABLE +

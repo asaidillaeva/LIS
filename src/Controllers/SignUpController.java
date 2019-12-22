@@ -53,7 +53,7 @@ public class SignUpController extends Methods {
             }
         });
         signInBtn.setOnAction(event -> {
-            openWindow(signInBtn,"/fxml/loginPage.fxml");
+            openWindow(signInBtn, "/fxml/loginPage.fxml");
         });
     }
 
