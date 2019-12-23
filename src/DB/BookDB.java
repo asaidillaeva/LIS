@@ -1,17 +1,17 @@
 package DB;
 
 import Model.Books;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class BookDB extends DBConnection{
 
     public void addBook(Books book){
         String insert = "INSERT "  + Constant.BOOK_TABLE +
                 "(" + Constant.TITLE + "," + Constant.AUTHOR +
-                 "," + Constant.EDITION + "," +Constant.NumOfBook +
+                 "," + Constant.EDITION + "," +Constant.NUM +
                 "," + Constant.PRICE + "," + Constant.SUBJECT+ ")" +
                 "VALUES(?,?,?,?,?,?)";
 
@@ -30,22 +30,25 @@ public class BookDB extends DBConnection{
             e.printStackTrace();
         }
     }
-    public ResultSet getBook(String title){
-        ResultSet resset = null;
+    public ObservableList<Books> getBooks() throws SQLException, ClassNotFoundException {
+        String select = "SELECT * FROM " + Constant.BOOK_TABLE;
+        PreparedStatement st = getDbConnection().prepareStatement(select);
+        ResultSet resset = st.executeQuery(select);
 
-        String select = "SELECT * FROM " + Constant.BOOK_TABLE + " WHERE " +
-                Constant.TITLE+ " =?";
-        try {
-            PreparedStatement prSt = getDbConnection().prepareStatement(select);
-            prSt.setString(1, title);
+        ObservableList<Books> allBooks= FXCollections.observableArrayList();
 
-            resset = prSt.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return resset;
+        while(resset.next()){
+            String title = resset.getString(Constant.TITLE);
+            String author = resset.getString(Constant.AUTHOR);
+            String edition = resset.getString(Constant.EDITION);
+            String subject = resset.getString(Constant.SUBJECT);
+            Integer price = resset.getInt(Constant.PRICE);
+            Integer num = resset.getInt(Constant.NUM);
+
+            Books book = new Books(title,author,edition,price,num,subject);
+            allBooks.add(book);
+
+        }return allBooks;
     }
 
     public void editBook(){

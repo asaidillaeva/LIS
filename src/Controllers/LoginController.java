@@ -63,7 +63,7 @@ public class LoginController extends Methods {
         }
         if(counter>=1){
             if(username.getText().trim().equals("aliiaAdmin12345")){
-                openWindow(signInBtn, "/fxml/adminBook.fxml");
+                openWindow(signInBtn, "/fxml/twoPanes.fxml");
             }else {
                 openWindow(signInBtn, "/fxml/homePage.fxml");
             }

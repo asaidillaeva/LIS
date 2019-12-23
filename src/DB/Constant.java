@@ -17,7 +17,7 @@ public class Constant {
     public static final String STATUS = "status";
     public static final String EDITION = "edition";
     public static final String DATE = "dateOfPhurchase";
-    public static final String NumOfBook = "numOfBook";
+    public static final String NUM = "numOfBook";
     public static final String PRICE = "price";
     public static final String SUBJECT = "subject";
 
