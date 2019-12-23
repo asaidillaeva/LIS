@@ -8,6 +8,7 @@ import java.sql.*;
 
 public class BookDB extends DBConnection{
 
+    public static ObservableList<Books> bookList = FXCollections.observableArrayList();
     public void addBook(Books book){
         String insert = "INSERT "  + Constant.BOOK_TABLE +
                 "(" + Constant.TITLE + "," + Constant.AUTHOR +
@@ -24,6 +25,7 @@ public class BookDB extends DBConnection{
             prSt.setInt(5, book.getPrice());
             prSt.setString(6, book.getSubject());
             prSt.executeUpdate();
+            bookList.add(book);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -51,11 +53,13 @@ public class BookDB extends DBConnection{
         }return allBooks;
     }
 
-    public void editBook(){
+    public void editBook(Books book){
 
     }
 
-    public void removeBook(){
+    public void removeBook(Books book){
+
+        bookList.remove(book);
 
     }
 }

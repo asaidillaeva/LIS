@@ -48,8 +48,8 @@ public class LoginController extends Methods {
         Member member = new Member();
         member.setUsername(loginUser);
         member.setPassword(loginPassword);
-        dbHandler.getUser(member);
-        ResultSet result = dbHandler.getUser(member);
+        dbHandler.getMember(member);
+        ResultSet result = dbHandler.getMember(member);
 
         int counter = 0;
 

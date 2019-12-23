@@ -3,14 +3,15 @@ package Controllers;
 import DB.BookDB;
 import Model.Books;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
+import java.sql.SQLException;
+
+import static DB.BookDB.bookList;
 import static java.lang.Integer.parseInt;
 
 public class TwoPanesController extends Methods {
@@ -109,7 +110,24 @@ public class TwoPanesController extends Methods {
         showBooks();
     }
     public void showBooks(){
+        TableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        BookDB bookDB = new BookDB();
+        try {
+            bookList = bookDB.getBooks();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
+        titleColumn.setCellValueFactory(new PropertyValueFactory<Books, String>("title"));
+        authorColumn.setCellValueFactory(new PropertyValueFactory<Books,String>("author"));
+        publisherColumn.setCellValueFactory(new PropertyValueFactory<Books,String>("edition"));
+        subjectColumn.setCellValueFactory(new PropertyValueFactory<Books, String>("subject"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<Books, Integer>("price"));
+        numColumn.setCellValueFactory(new PropertyValueFactory<Books,Integer>("numOfBook"));
+
+        TableView.setItems(bookList);
     }
 
     private void addNewBook() {
@@ -160,11 +178,14 @@ public class TwoPanesController extends Methods {
 
     @FXML
     void editBook(MouseEvent event) {
+
         editBookPane.toFront();
     }
 
     @FXML
     void removeBook(MouseEvent event) {
+        TableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
     }
 
     @FXML

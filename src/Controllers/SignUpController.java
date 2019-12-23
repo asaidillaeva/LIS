@@ -41,9 +41,9 @@ public class SignUpController extends Methods {
     @FXML
     void initialize(){
         signUpBtn.setOnAction(event ->{
-            if(!firstnameTextField.equals("") && !lastnameTextField.equals("") &&
-                    !usernameTextField.equals("") && !passwordField.equals("") &&
-                    !phoneNumberTextField.equals("") && !addressTextField.equals("")
+            if(!firstnameTextField.getText().equals("") && !lastnameTextField.getText().equals("") &&
+                    !usernameTextField.getText().equals("") && !passwordField.getText().equals("") &&
+                    !phoneNumberTextField.getText().equals("") && !addressTextField.getText().equals("")
             ){
                 signUpNewMember();
             } else{

@@ -30,23 +30,22 @@ public class MemberDB extends DBConnection {
             e.printStackTrace();
         }
     }
-    public ResultSet getUser(Member member){
-        ResultSet resset = null;
+    public ResultSet getMember(Member user) {
+        ResultSet resSet = null;
 
-        String select = "SELECT * FROM " + Constant.USER_TABLE + " WHERE " +
-                Constant.USER_USERNAME+ " =? AND " + Constant.USER_PASSWORD + "=?";
+        String select = "SELECT * FROM " + Constant.USER_TABLE+" WHERE username =? AND password =?";
+
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(select);
-            prSt.setString(1, member.getUsername());
-            prSt.setString(2, member.getPassword());
+            prSt.setString(1, user.getUsername());
+            prSt.setString(2, user.getPassword());
 
-            resset = prSt.executeQuery();
+            resSet = prSt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return resset;
-
+        return resSet;
     }
 }
