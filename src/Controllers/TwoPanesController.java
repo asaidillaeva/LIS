@@ -14,101 +14,93 @@ import java.sql.SQLException;
 import static DB.BookDB.bookList;
 import static java.lang.Integer.parseInt;
 
+
 public class TwoPanesController extends Methods {
 
     @FXML
     private Pane main;
-
     @FXML
     private ImageView backIcon;
-
     @FXML
     private ImageView searchicon;
-
     @FXML
     private TextField title;
-
     @FXML
     private TextField subject;
-
     @FXML
     private TextField author;
-
-
     @FXML
     private Pane editBookPane;
-
     @FXML
     private TextField titleEditText;
-
     @FXML
     private TextField authorEditText;
-
     @FXML
     private TextField editionEditText;
-
     @FXML
     private TextField numEditText;
-
     @FXML
     private TextField subjectEditText;
-
     @FXML
     private Button updateBtn;
-
     @FXML
     private Pane newBookPane;
-
     @FXML
     private TextField titleText;
-
     @FXML
     private TextField authorText;
-
     @FXML
     private TextField editionText;
-
     @FXML
     private TextField numText;
-
-
     @FXML
     private TextField subjectText;
-
     @FXML
     private Button addNewBtn;
-
     @FXML
     private TableView<Books> TableView;
-
     @FXML
     private TableColumn<Books, String> titleColumn;
-
     @FXML
     private TableColumn<Books, String> authorColumn;
-
     @FXML
     private TableColumn<Books, String> publisherColumn;
-
     @FXML
     private TableColumn<Books, String> subjectColumn;
-
     @FXML
     private TableColumn<Books, Integer> numColumn;
+
 
     @FXML
     void initialize(){
         main.toFront();
         showBooks();
+
+
+        updateBtn.setOnAction(event ->{
+            BookDB bookDB = new BookDB();
+
+            String t=titleEditText.getText();
+            String a=authorEditText.getText();
+            String e=editionEditText.getText();
+            String s=subjectEditText.getText();
+            Integer n = parseInt(numEditText.getText());
+            Books book = new Books(t,a,e,n, s);
+            try {
+                bookDB.editBook(book);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        });
     }
     public void showBooks(){
         TableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         BookDB bookDB = new BookDB();
         try {
             bookList = bookDB.getBooks();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -121,7 +113,7 @@ public class TwoPanesController extends Methods {
         TableView.setItems(bookList);
     }
 
-    private void addNewBook() {
+    private void addNewBook() throws SQLException, ClassNotFoundException {
         String title = titleText.getText();
         String author = authorText.getText();
         String edition = editionText.getText();
@@ -133,13 +125,14 @@ public class TwoPanesController extends Methods {
         bookDB.addBook(book);
     }
 
+
     @FXML
     void addBook(MouseEvent event) {
         newBookPane.toFront();
     }
 
     @FXML
-    void addBtnPressed(MouseEvent event) {
+    void addBtnPressed(MouseEvent event) throws SQLException, ClassNotFoundException {
         if(!titleText.getText().equals("") && !authorText.getText().equals("")  &&
                 !editionText.getText().equals("")  && !numText.getText().equals("") &&
                 !subjectText.getText().equals("")
@@ -166,15 +159,28 @@ public class TwoPanesController extends Methods {
     }
 
     @FXML
-    void editBook(MouseEvent event) {
-
+    void editBook(MouseEvent event) throws SQLException, ClassNotFoundException {
+        Books book = TableView.getSelectionModel().getSelectedItem();
+        BookDB bookDB = new BookDB();
         editBookPane.toFront();
+        titleEditText.setText(book.getTitle());
+        authorEditText.setText(book.getAuthor());
+        editionEditText.setText(book.getEdition());
+        subjectEditText.setText(book.getSubject());
+        numEditText.setText(String.valueOf(book.getNumOfBook()));
     }
 
     @FXML
-    void removeBook(MouseEvent event) {
-        TableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
+    void removeBook(MouseEvent event) throws SQLException, ClassNotFoundException {
+      TableView.getItems().removeAll(TableView.getSelectionModel().getSelectedItem());
+        String t= TableView.getSelectionModel().getSelectedItem().getTitle();
+        String a = TableView.getSelectionModel().getSelectedItem().getAuthor();
+        String e = TableView.getSelectionModel().getSelectedItem().getEdition();
+        String s = TableView.getSelectionModel().getSelectedItem().getSubject();
+        Integer n = TableView.getSelectionModel().getSelectedItem().getNumOfBook();
+        Books book = new Books(t,a,e,n, s);
+        BookDB.remove(book);
+        bookList.removeAll(book);
     }
 
     @FXML

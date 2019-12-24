@@ -1,7 +1,7 @@
 package Model;
 
 public class Books {
-    private String bookId;
+    private Integer bookId;
     private String title;
     private String author;
     private String edition;
@@ -25,8 +25,8 @@ public class Books {
         this.numOfBook = numOfBook;
     }
 
-    public String getBookId() {
-        return bookId;
+    public int getBookId() {
+        return bookId ;
     }
 
     public String getTitle() {

@@ -1,19 +1,18 @@
 package DB;
-
 import Model.Books;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-
 public class BookDB extends DBConnection{
-
     public static ObservableList<Books> bookList = FXCollections.observableArrayList();
+
+
     public void addBook(Books book){
         String insert = "INSERT "  + Constant.BOOK_TABLE +
                 "(" + Constant.TITLE + "," + Constant.AUTHOR +
-                 "," + Constant.EDITION + "," +Constant.NUM +
-                 "," + Constant.SUBJECT+ ")" +
+                "," + Constant.EDITION + "," +Constant.NUM +
+                "," + Constant.SUBJECT+ ")" +
                 "VALUES(?,?,?,?,?)";
 
         try {
@@ -22,15 +21,14 @@ public class BookDB extends DBConnection{
             prSt.setString(2, book.getAuthor());
             prSt.setString(3, book.getEdition());
             prSt.setInt(4, book.getNumOfBook());
-            prSt.setString(6, book.getSubject());
+            prSt.setString(5, book.getSubject());
             prSt.executeUpdate();
             bookList.add(book);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
+
     public ObservableList<Books> getBooks() throws SQLException, ClassNotFoundException {
         String select = "SELECT * FROM " + Constant.BOOK_TABLE;
         PreparedStatement st = getDbConnection().prepareStatement(select);
@@ -51,13 +49,15 @@ public class BookDB extends DBConnection{
         }return allBooks;
     }
 
-    public void editBook(Books book){
-
+    public void editBook(Books book) throws SQLException, ClassNotFoundException {
+        remove(book);
+        addBook(book);
     }
 
-    public void removeBook(Books book){
-
-        bookList.remove(book);
-
+    public static void remove(Books book) throws SQLException, ClassNotFoundException {
+//        Connection db = getDbConnection();
+        String query="DELETE FROM "+Constant.BOOK_TABLE+" WHERE "+Constant.TITLE+" = '"+book.getTitle()+"'";
+        PreparedStatement statement= getDbConnection().prepareStatement(query);
+        statement.executeUpdate(query);
     }
 }
