@@ -13,8 +13,8 @@ public class BookDB extends DBConnection{
         String insert = "INSERT "  + Constant.BOOK_TABLE +
                 "(" + Constant.TITLE + "," + Constant.AUTHOR +
                  "," + Constant.EDITION + "," +Constant.NUM +
-                "," + Constant.PRICE + "," + Constant.SUBJECT+ ")" +
-                "VALUES(?,?,?,?,?,?)";
+                 "," + Constant.SUBJECT+ ")" +
+                "VALUES(?,?,?,?,?)";
 
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(insert);
@@ -22,7 +22,6 @@ public class BookDB extends DBConnection{
             prSt.setString(2, book.getAuthor());
             prSt.setString(3, book.getEdition());
             prSt.setInt(4, book.getNumOfBook());
-            prSt.setInt(5, book.getPrice());
             prSt.setString(6, book.getSubject());
             prSt.executeUpdate();
             bookList.add(book);
@@ -44,10 +43,9 @@ public class BookDB extends DBConnection{
             String author = resset.getString(Constant.AUTHOR);
             String edition = resset.getString(Constant.EDITION);
             String subject = resset.getString(Constant.SUBJECT);
-            Integer price = resset.getInt(Constant.PRICE);
             Integer num = resset.getInt(Constant.NUM);
 
-            Books book = new Books(title,author,edition,price,num,subject);
+            Books book = new Books(title,author,edition,num,subject);
             allBooks.add(book);
 
         }return allBooks;

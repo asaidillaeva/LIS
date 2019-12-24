@@ -51,9 +51,6 @@ public class TwoPanesController extends Methods {
     private TextField numEditText;
 
     @FXML
-    private TextField priceEditText;
-
-    @FXML
     private TextField subjectEditText;
 
     @FXML
@@ -74,8 +71,6 @@ public class TwoPanesController extends Methods {
     @FXML
     private TextField numText;
 
-    @FXML
-    private TextField priceText;
 
     @FXML
     private TextField subjectText;
@@ -97,9 +92,6 @@ public class TwoPanesController extends Methods {
 
     @FXML
     private TableColumn<Books, String> subjectColumn;
-
-    @FXML
-    private TableColumn<Books, Integer> priceColumn;
 
     @FXML
     private TableColumn<Books, Integer> numColumn;
@@ -124,7 +116,6 @@ public class TwoPanesController extends Methods {
         authorColumn.setCellValueFactory(new PropertyValueFactory<Books,String>("author"));
         publisherColumn.setCellValueFactory(new PropertyValueFactory<Books,String>("edition"));
         subjectColumn.setCellValueFactory(new PropertyValueFactory<Books, String>("subject"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<Books, Integer>("price"));
         numColumn.setCellValueFactory(new PropertyValueFactory<Books,Integer>("numOfBook"));
 
         TableView.setItems(bookList);
@@ -135,10 +126,9 @@ public class TwoPanesController extends Methods {
         String author = authorText.getText();
         String edition = editionText.getText();
         int numOfBook = parseInt(numText.getText());
-        int price = parseInt(priceText.getText());
         String subject = subjectText.getText();
 
-        Books book = new Books(title, author, edition, numOfBook, price, subject);
+        Books book = new Books(title, author, edition, numOfBook, subject);
         BookDB bookDB = new BookDB();
         bookDB.addBook(book);
     }
@@ -152,13 +142,12 @@ public class TwoPanesController extends Methods {
     void addBtnPressed(MouseEvent event) {
         if(!titleText.getText().equals("") && !authorText.getText().equals("")  &&
                 !editionText.getText().equals("")  && !numText.getText().equals("") &&
-                !priceText.getText().equals("") && !subjectText.getText().equals("")
+                !subjectText.getText().equals("")
         ){
             addNewBook();
         } else{
             animation(titleText,authorText);
             animation(editionText, numText);
-            animation(priceText, subjectText);
         }
     }
     @FXML

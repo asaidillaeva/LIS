@@ -5,15 +5,13 @@ public class Books {
     private String title;
     private String author;
     private String edition;
-    private int price;
     private String subject;
     private int numOfBook;
 
-    public Books(String title, String author, String edition, int price, int numOfBook, String subject) {
+    public Books(String title, String author, String edition, int numOfBook, String subject) {
         this.title = title;
         this.author = author;
         this.edition = edition;
-        this.price = price;
         this.subject = subject;
         this.numOfBook = numOfBook;
     }
@@ -22,9 +20,6 @@ public class Books {
 
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
 
     public void setNumOfBook(int numOfBook) {
         this.numOfBook = numOfBook;
@@ -44,10 +39,6 @@ public class Books {
 
     public String getEdition() {
         return edition;
-    }
-
-    public int getPrice() {
-        return price;
     }
 
     public String getSubject() {
