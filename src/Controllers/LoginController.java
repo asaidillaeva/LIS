@@ -63,9 +63,9 @@ public class LoginController extends Methods {
         }
         if(counter>=1){
             if(username.getText().trim().equals("aliiaAdmin12345")){
-                openWindow(signInBtn, "/fxml/twoPanes.fxml");
+                openWindow(signInBtn, "/fxml/AdminPanel.fxml");
             }else {
-                openWindow(signInBtn, "/fxml/homePage.fxml");
+                openWindow(signInBtn, "/fxml/UserPanes.fxml");
             }
         }else{
             animation(username, password);
