@@ -50,14 +50,13 @@ public class BookDB extends DBConnection{
     }
 
     public void editBook(Books book) throws SQLException, ClassNotFoundException {
-        remove(book);
         addBook(book);
     }
 
     public static void remove(Books book) throws SQLException, ClassNotFoundException {
-//        Connection db = getDbConnection();
         String query="DELETE FROM "+Constant.BOOK_TABLE+" WHERE "+Constant.TITLE+" = '"+book.getTitle()+"'";
         PreparedStatement statement= getDbConnection().prepareStatement(query);
         statement.executeUpdate(query);
+        bookList.removeAll(book);
     }
 }

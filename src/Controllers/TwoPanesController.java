@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import java.sql.SQLException;
 
 import static DB.BookDB.bookList;
+import static DB.BookDB.remove;
 import static java.lang.Integer.parseInt;
 
 
@@ -86,13 +87,7 @@ public class TwoPanesController extends Methods {
             String s=subjectEditText.getText();
             Integer n = parseInt(numEditText.getText());
             Books book = new Books(t,a,e,n, s);
-            try {
-                bookDB.editBook(book);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
-            }
+            bookDB.addBook(book);
         });
     }
     public void showBooks(){
@@ -163,6 +158,7 @@ public class TwoPanesController extends Methods {
         Books book = TableView.getSelectionModel().getSelectedItem();
         BookDB bookDB = new BookDB();
         editBookPane.toFront();
+        remove(book);
         titleEditText.setText(book.getTitle());
         authorEditText.setText(book.getAuthor());
         editionEditText.setText(book.getEdition());
@@ -172,15 +168,14 @@ public class TwoPanesController extends Methods {
 
     @FXML
     void removeBook(MouseEvent event) throws SQLException, ClassNotFoundException {
-      TableView.getItems().removeAll(TableView.getSelectionModel().getSelectedItem());
         String t= TableView.getSelectionModel().getSelectedItem().getTitle();
         String a = TableView.getSelectionModel().getSelectedItem().getAuthor();
         String e = TableView.getSelectionModel().getSelectedItem().getEdition();
         String s = TableView.getSelectionModel().getSelectedItem().getSubject();
         Integer n = TableView.getSelectionModel().getSelectedItem().getNumOfBook();
-        Books book = new Books(t,a,e,n, s);
-        BookDB.remove(book);
-        bookList.removeAll(book);
+      TableView.getItems().removeAll(TableView.getSelectionModel().getSelectedItem());
+        Books book = new Books(t,a,e,n,s);
+        remove(book);
     }
 
     @FXML
