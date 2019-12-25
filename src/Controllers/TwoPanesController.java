@@ -1,7 +1,10 @@
 package Controllers;
 
 import DB.BookDB;
+import DB.Constant;
 import Model.Books;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,10 +17,7 @@ import java.sql.SQLException;
 import static DB.BookDB.bookList;
 import static DB.BookDB.remove;
 import static java.lang.Integer.parseInt;
-
-
 public class TwoPanesController extends Methods {
-
     @FXML
     private Pane main;
     @FXML
@@ -70,17 +70,18 @@ public class TwoPanesController extends Methods {
     private TableColumn<Books, String> subjectColumn;
     @FXML
     private TableColumn<Books, Integer> numColumn;
-
-
     @FXML
     void initialize(){
         main.toFront();
-        showBooks();
-
+        BookDB bookDB = new BookDB();
+        try {
+            bookList = bookDB.getBooks();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        showBooks(bookList);
 
         updateBtn.setOnAction(event ->{
-            BookDB bookDB = new BookDB();
-
             String t=titleEditText.getText();
             String a=authorEditText.getText();
             String e=editionEditText.getText();
@@ -90,24 +91,16 @@ public class TwoPanesController extends Methods {
             bookDB.addBook(book);
         });
     }
-    public void showBooks(){
+    public void showBooks(ObservableList<Books> books){
         TableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        BookDB bookDB = new BookDB();
-        try {
-            bookList = bookDB.getBooks();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
         publisherColumn.setCellValueFactory(new PropertyValueFactory<>("edition"));
         subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
         numColumn.setCellValueFactory(new PropertyValueFactory<>("numOfBook"));
 
-        TableView.setItems(bookList);
+        TableView.setItems(books);
     }
-
     private void addNewBook(){
         String title = titleText.getText();
         String author = authorText.getText();
@@ -126,12 +119,10 @@ public class TwoPanesController extends Methods {
 
     }
 
-
     @FXML
     void addBook(MouseEvent event) {
         newBookPane.toFront();
     }
-
     @FXML
     void addBtnPressed(MouseEvent event) {
         if(!titleText.getText().equals("") && !authorText.getText().equals("")  &&
@@ -148,17 +139,14 @@ public class TwoPanesController extends Methods {
     void backEditPressed(MouseEvent event) {
         main.toFront();
     }
-
     @FXML
     void backIconPressed(MouseEvent event) {
         openWindow(addNewBtn, "/fxml/loginPage.fxml");
     }
-
     @FXML
     void backNewPressed(MouseEvent event) {
         main.toFront();
     }
-
     @FXML
     void editBook(MouseEvent event) throws SQLException, ClassNotFoundException {
         Books book = TableView.getSelectionModel().getSelectedItem();
@@ -171,7 +159,6 @@ public class TwoPanesController extends Methods {
         subjectEditText.setText(book.getSubject());
         numEditText.setText(String.valueOf(book.getNumOfBook()));
     }
-
     @FXML
     void removeBook(MouseEvent event) throws SQLException, ClassNotFoundException {
         String t= TableView.getSelectionModel().getSelectedItem().getTitle();
@@ -183,9 +170,20 @@ public class TwoPanesController extends Methods {
         Books book = new Books(t,a,e,n,s);
         remove(book);
     }
-
     @FXML
-    void searchBook(MouseEvent event) {
-    }
+    void searchBook(MouseEvent event) throws SQLException, ClassNotFoundException {
+        ObservableList<Books> books = FXCollections.observableArrayList();
+        if(title.getText().isEmpty() && author.getText().isEmpty() && subject.getText().isEmpty()){
+            animation(title,author);
+        }else if(!title.getText().isEmpty() && author.getText().isEmpty() && subject.getText().isEmpty()) {
+            books = BookDB.search(Constant.TITLE, title.getText().trim());
+        }else if(title.getText().isEmpty() && !author.getText().isEmpty() && subject.getText().isEmpty()){
+            books = BookDB.search(Constant.AUTHOR, author.getText().trim());
+        }else if(title.getText().isEmpty() && author.getText().isEmpty() && !subject.getText().isEmpty()){
+            books = BookDB.search(Constant.SUBJECT, subject.getText().trim());
+        }else if(title.getText().isEmpty() && author.getText().isEmpty() && !subject.getText().isEmpty()){
 
+        }
+        showBooks(books);
+    }
 }

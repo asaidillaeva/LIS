@@ -2,6 +2,7 @@ package Controllers;
 
 import DB.BookDB;
 import Model.Books;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,79 +19,55 @@ public class UserPanelController extends Methods {
 
     @FXML
     private Pane infoPane;
-
     @FXML
     private Pane homePane;
-
     @FXML
     private Button backBtn;
-
     @FXML
     private Button infoBtn;
-
     @FXML
     private Button booksBtn;
-
     @FXML
     private Pane bookPane;
-
     @FXML
     private ImageView backIcon;
-
     @FXML
     private ImageView searchicon;
-
     @FXML
     private TextField title;
-
     @FXML
     private TextField subject;
-
     @FXML
     private TextField author;
-
     @FXML
     private AnchorPane dbPane;
-
     @FXML
     private TableView<Books> TableView;
-
     @FXML
     private TableColumn<Books,String> titleColumn;
-
     @FXML
     private TableColumn<Books, String> authorColumn;
-
     @FXML
     private TableColumn<Books, String> publisherColumn;
-
     @FXML
     private TableColumn<Books, String> subjectColumn;
-
     @FXML
     private TableColumn<Books, Integer> numColumn;
-
     @FXML
     private Button noneBtn;
     @FXML
     void initialize(){
         homePane.toFront();
+
     }
 
-    public void showBooks(){
+    public void showBooks(ObservableList<Books> books){
         TableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        BookDB bookDB = new BookDB();
-        try {
-            bookList = bookDB.getBooks();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        titleColumn.setCellValueFactory(new PropertyValueFactory<Books, String>("title"));
-        authorColumn.setCellValueFactory(new PropertyValueFactory<Books,String>("author"));
-        publisherColumn.setCellValueFactory(new PropertyValueFactory<Books,String>("edition"));
-        subjectColumn.setCellValueFactory(new PropertyValueFactory<Books, String>("subject"));
-        numColumn.setCellValueFactory(new PropertyValueFactory<Books,Integer>("numOfBook"));
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
+        publisherColumn.setCellValueFactory(new PropertyValueFactory<>("edition"));
+        subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
+        numColumn.setCellValueFactory(new PropertyValueFactory<>("numOfBook"));
 
         TableView.setItems(bookList);
     }
@@ -105,9 +82,11 @@ public class UserPanelController extends Methods {
     }
 
     @FXML
-    void bookPressed(MouseEvent event) {
+    void bookPressed(MouseEvent event) throws SQLException, ClassNotFoundException {
         bookPane.toFront();
-        showBooks();
+        BookDB bookDB = new BookDB();
+        bookList = bookDB.getBooks();
+        showBooks(bookList);
     }
 
     @FXML
