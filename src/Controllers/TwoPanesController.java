@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
@@ -20,10 +19,7 @@ import static java.lang.Integer.parseInt;
 public class TwoPanesController extends Methods {
     @FXML
     private Pane main;
-    @FXML
-    private ImageView backIcon;
-    @FXML
-    private ImageView searchicon;
+
     @FXML
     private TextField title;
     @FXML
@@ -175,6 +171,7 @@ public class TwoPanesController extends Methods {
         ObservableList<Books> books = FXCollections.observableArrayList();
         if(title.getText().isEmpty() && author.getText().isEmpty() && subject.getText().isEmpty()){
             animation(title,author);
+            showBooks(bookList);
         }else if(!title.getText().isEmpty() && author.getText().isEmpty() && subject.getText().isEmpty()) {
             books = BookDB.search(Constant.TITLE, title.getText().trim());
         }else if(title.getText().isEmpty() && !author.getText().isEmpty() && subject.getText().isEmpty()){
@@ -182,7 +179,6 @@ public class TwoPanesController extends Methods {
         }else if(title.getText().isEmpty() && author.getText().isEmpty() && !subject.getText().isEmpty()){
             books = BookDB.search(Constant.SUBJECT, subject.getText().trim());
         }else if(title.getText().isEmpty() && author.getText().isEmpty() && !subject.getText().isEmpty()){
-
         }
         showBooks(books);
     }
