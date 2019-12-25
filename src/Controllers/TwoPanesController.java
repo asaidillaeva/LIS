@@ -85,7 +85,7 @@ public class TwoPanesController extends Methods {
             String a=authorEditText.getText();
             String e=editionEditText.getText();
             String s=subjectEditText.getText();
-            Integer n = parseInt(numEditText.getText());
+            int n = parseInt(numEditText.getText());
             Books book = new Books(t,a,e,n, s);
             bookDB.addBook(book);
         });
@@ -99,16 +99,16 @@ public class TwoPanesController extends Methods {
             e.printStackTrace();
         }
 
-        titleColumn.setCellValueFactory(new PropertyValueFactory<Books, String>("title"));
-        authorColumn.setCellValueFactory(new PropertyValueFactory<Books,String>("author"));
-        publisherColumn.setCellValueFactory(new PropertyValueFactory<Books,String>("edition"));
-        subjectColumn.setCellValueFactory(new PropertyValueFactory<Books, String>("subject"));
-        numColumn.setCellValueFactory(new PropertyValueFactory<Books,Integer>("numOfBook"));
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
+        publisherColumn.setCellValueFactory(new PropertyValueFactory<>("edition"));
+        subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
+        numColumn.setCellValueFactory(new PropertyValueFactory<>("numOfBook"));
 
         TableView.setItems(bookList);
     }
 
-    private void addNewBook() throws SQLException, ClassNotFoundException {
+    private void addNewBook(){
         String title = titleText.getText();
         String author = authorText.getText();
         String edition = editionText.getText();
@@ -118,6 +118,12 @@ public class TwoPanesController extends Methods {
         Books book = new Books(title, author, edition, numOfBook, subject);
         BookDB bookDB = new BookDB();
         bookDB.addBook(book);
+        titleText.clear();
+        authorText.clear();
+        editionText.clear();
+        subjectText.clear();
+        numText.clear();
+
     }
 
 
@@ -127,7 +133,7 @@ public class TwoPanesController extends Methods {
     }
 
     @FXML
-    void addBtnPressed(MouseEvent event) throws SQLException, ClassNotFoundException {
+    void addBtnPressed(MouseEvent event) {
         if(!titleText.getText().equals("") && !authorText.getText().equals("")  &&
                 !editionText.getText().equals("")  && !numText.getText().equals("") &&
                 !subjectText.getText().equals("")
@@ -172,7 +178,7 @@ public class TwoPanesController extends Methods {
         String a = TableView.getSelectionModel().getSelectedItem().getAuthor();
         String e = TableView.getSelectionModel().getSelectedItem().getEdition();
         String s = TableView.getSelectionModel().getSelectedItem().getSubject();
-        Integer n = TableView.getSelectionModel().getSelectedItem().getNumOfBook();
+        int n = TableView.getSelectionModel().getSelectedItem().getNumOfBook();
       TableView.getItems().removeAll(TableView.getSelectionModel().getSelectedItem());
         Books book = new Books(t,a,e,n,s);
         remove(book);
