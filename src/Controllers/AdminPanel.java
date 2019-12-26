@@ -3,7 +3,6 @@ package Controllers;
 import DB.BookDB;
 import DB.Constant;
 import Model.Books;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -16,7 +15,7 @@ import java.sql.SQLException;
 import static DB.BookDB.bookList;
 import static DB.BookDB.remove;
 import static java.lang.Integer.parseInt;
-public class TwoPanesController extends Methods {
+public class AdminPanel extends Methods {
     @FXML
     private Pane main;
 
@@ -168,17 +167,30 @@ public class TwoPanesController extends Methods {
     }
     @FXML
     void searchBook(MouseEvent event) throws SQLException, ClassNotFoundException {
-        ObservableList<Books> books = FXCollections.observableArrayList();
+        ObservableList<Books> books;
         if(title.getText().isEmpty() && author.getText().isEmpty() && subject.getText().isEmpty()){
-            animation(title,author);
-            showBooks(bookList);
-        }else if(!title.getText().isEmpty() && author.getText().isEmpty() && subject.getText().isEmpty()) {
+            books=BookDB.getBooks();
+        }
+        else if(!title.getText().isEmpty() && author.getText().isEmpty() && subject.getText().isEmpty()) {
             books = BookDB.search(Constant.TITLE, title.getText().trim());
-        }else if(title.getText().isEmpty() && !author.getText().isEmpty() && subject.getText().isEmpty()){
+        }
+        else if(title.getText().isEmpty() && !author.getText().isEmpty() && subject.getText().isEmpty()){
             books = BookDB.search(Constant.AUTHOR, author.getText().trim());
-        }else if(title.getText().isEmpty() && author.getText().isEmpty() && !subject.getText().isEmpty()){
+        }
+        else if(title.getText().isEmpty() && author.getText().isEmpty() && !subject.getText().isEmpty()){
             books = BookDB.search(Constant.SUBJECT, subject.getText().trim());
-        }else if(title.getText().isEmpty() && author.getText().isEmpty() && !subject.getText().isEmpty()){
+        }
+        else if(!title.getText().isEmpty() && author.getText().isEmpty() && !subject.getText().isEmpty()){
+            books= BookDB.searchTwo(Constant.TITLE,title.getText().trim(),Constant.SUBJECT,subject.getText().trim());
+        }
+        else if(title.getText().isEmpty() && !author.getText().isEmpty() && !subject.getText().isEmpty()){
+            books = BookDB.searchTwo(Constant.AUTHOR, author.getText().trim(),Constant.SUBJECT,subject.getText().trim());
+        }
+        else if(!title.getText().isEmpty() && !author.getText().isEmpty() && subject.getText().isEmpty()){
+            books = BookDB.searchTwo(Constant.AUTHOR, author.getText().trim(), Constant.TITLE, title.getText().trim());
+        }
+        else{
+            books = BookDB.searchThree(Constant.TITLE, title.getText().trim(), Constant.AUTHOR, author.getText().trim(),Constant.SUBJECT,subject.getText().trim());
         }
         showBooks(books);
     }

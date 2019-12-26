@@ -31,7 +31,7 @@ public class BookDB extends DBConnection{
         }
     }
 
-    public ObservableList<Books> getBooks() throws SQLException, ClassNotFoundException {
+    public static ObservableList<Books> getBooks() throws SQLException, ClassNotFoundException {
         String select = "SELECT * FROM " + Constant.BOOK_TABLE;
         PreparedStatement st = getDbConnection().prepareStatement(select);
         ResultSet resset = st.executeQuery(select);
@@ -70,25 +70,45 @@ public class BookDB extends DBConnection{
 
         }return allBooks;
     }
-//    public static ObservableList<Books> searchTwo(String n, String m, String n1, String m1) throws SQLException, ClassNotFoundException {
-//        String select = "SELECT * FROM " + Constant.BOOK_TABLE + " WHERE "+n+" =  '%"+m+"%' AND "+n1+"=  '%"+m1+"%'";
-//        PreparedStatement st = getDbConnection().prepareStatement(select);
-//        ResultSet resset = st.executeQuery(select);
-//
-//        ObservableList<Books> allBooks= FXCollections.observableArrayList();
-//
-//        while(resset.next()){
-//            String title = resset.getString(Constant.TITLE);
-//            String author = resset.getString(Constant.AUTHOR);
-//            String edition = resset.getString(Constant.EDITION);
-//            String subject = resset.getString(Constant.SUBJECT);
-//            int num = resset.getInt(Constant.NUM);
-//
-//            Books book = new Books(title,author,edition,num,subject);
-//            allBooks.add(book);
-//
-//        }return allBooks;
-//    }
+    public static ObservableList<Books> searchTwo(String n, String m, String n1, String m1) throws SQLException, ClassNotFoundException {
+        String select = "SELECT * FROM " + Constant.BOOK_TABLE + " WHERE "+n+" LIKE  '% "+m+" %' AND "+n1+" LIKE  '% "+m1+" %'";
+        PreparedStatement st = getDbConnection().prepareStatement(select);
+        ResultSet resset = st.executeQuery(select);
+
+        ObservableList<Books> allBooks= FXCollections.observableArrayList();
+
+        while(resset.next()){
+            String title = resset.getString(Constant.TITLE);
+            String author = resset.getString(Constant.AUTHOR);
+            String edition = resset.getString(Constant.EDITION);
+            String subject = resset.getString(Constant.SUBJECT);
+            int num = resset.getInt(Constant.NUM);
+
+            Books book = new Books(title,author,edition,num,subject);
+            allBooks.add(book);
+
+        }return allBooks;
+    }
+
+    public static ObservableList<Books> searchThree(String n, String m, String n1, String m1, String n2, String m2) throws SQLException, ClassNotFoundException {
+        String select = "SELECT * FROM " + Constant.BOOK_TABLE + " WHERE "+n+" LIKE  '% "+ m+" %' OR "+n1+" LIKE  '% "+m1+" %' OR "+n2+" LIKE "+m2;
+        PreparedStatement st = getDbConnection().prepareStatement(select);
+        ResultSet resset = st.executeQuery(select);
+
+        ObservableList<Books> allBooks= FXCollections.observableArrayList();
+
+        while(resset.next()){
+            String title = resset.getString(Constant.TITLE);
+            String author = resset.getString(Constant.AUTHOR);
+            String edition = resset.getString(Constant.EDITION);
+            String subject = resset.getString(Constant.SUBJECT);
+            int num = resset.getInt(Constant.NUM);
+
+            Books book = new Books(title,author,edition,num,subject);
+            allBooks.add(book);
+
+        }return allBooks;
+    }
 
 
     public static void remove(Books book) throws SQLException, ClassNotFoundException {
