@@ -1,7 +1,5 @@
 package Controllers;
 
-import DB.MemberDB;
-import Model.Member;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -65,7 +63,7 @@ public class LoginController extends Methods {
             if(username.getText().trim().equals("aliiaAdmin12345")){
                 openWindow(signInBtn, "/fxml/adminPanel.fxml");
             }else {
-                openWindow(signInBtn, "/fxml/UserPanes.fxml");
+                openWindow(signInBtn, "/fxml/userPanes.fxml");
             }
         }else{
             animation(username, password);

@@ -47,7 +47,7 @@
                               <TextField fx:id="editionEditText" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                               <TextField fx:id="numEditText" prefWidth="150.0" GridPane.columnIndex="3" />
                               <TextField fx:id="subjectEditText" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                              <Button fx:id="updateBtn" mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #7a0052;" stylesheets="@css/loginPageStyle.css" text="Update" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                              <Button fx:id="updateBtn" mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #7a0052;" stylesheets="@../Controllers/css/loginPageStyle.css" text="Update" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -145,7 +145,7 @@
                   <TextField fx:id="editionText" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <TextField fx:id="numText" prefWidth="150.0" GridPane.columnIndex="3" />
                   <TextField fx:id="subjectText" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Button fx:id="addNewBtn" mnemonicParsing="false" onMouseClicked="#addBtnPressed" prefWidth="110.0" style="-fx-background-color: #7a0052;" stylesheets="@css/loginPageStyle.css" text="Add book" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                  <Button fx:id="addNewBtn" mnemonicParsing="false" onMouseClicked="#addBtnPressed" prefWidth="110.0" style="-fx-background-color: #7a0052;" stylesheets="@../Controllers/css/loginPageStyle.css" text="Add book" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3">
                      <font>
                         <Font size="15.0" />
                      </font>

@@ -1,6 +1,5 @@
-package DB;
+package Controllers;
 
-import Model.Books;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -71,7 +70,7 @@ public class BookDB extends DBConnection{
         }return allBooks;
     }
     public static ObservableList<Books> searchTwo(String n, String m, String n1, String m1) throws SQLException, ClassNotFoundException {
-        String select = "SELECT * FROM " + Constant.BOOK_TABLE + " WHERE "+n+" LIKE  '% "+m+" %' AND "+n1+" LIKE  '% "+m1+" %'";
+        String select = "SELECT * FROM " + Constant.BOOK_TABLE + " WHERE "+n+" LIKE  '% "+m+" %' OR "+n1+" LIKE  '% "+m1+" %'";
         PreparedStatement st = getDbConnection().prepareStatement(select);
         ResultSet resset = st.executeQuery(select);
 

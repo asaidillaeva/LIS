@@ -1,7 +1,5 @@
 package Controllers;
 
-import DB.MemberDB;
-import Model.Member;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;

@@ -30,17 +30,17 @@
                   <Image url="@../img/whiteInfo.png" />
                </image>
             </ImageView>
-            <Button fx:id="backBtn" layoutX="73.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#backPressed" prefWidth="110.0" style="-fx-background-color: #7a0052;" stylesheets="@css/loginPageStyle.css" text="Back" textFill="WHITE" textOverrun="CLIP">
+            <Button fx:id="backBtn" layoutX="73.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#backPressed" prefWidth="110.0" style="-fx-background-color: #7a0052;" stylesheets="@../Controllers/css/loginPageStyle.css" text="Back" textFill="WHITE" textOverrun="CLIP">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="infoBtn" layoutX="425.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#infoPressed" prefWidth="110.0" style="-fx-background-color: #7a0052;" stylesheets="@css/loginPageStyle.css" text="information" textFill="WHITE" textOverrun="CLIP">
+            <Button fx:id="infoBtn" layoutX="425.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#infoPressed" prefWidth="110.0" style="-fx-background-color: #7a0052;" stylesheets="@../Controllers/css/loginPageStyle.css" text="information" textFill="WHITE" textOverrun="CLIP">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="booksBtn" layoutX="245.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#bookPressed" prefWidth="110.0" style="-fx-background-color: #7a0052;" stylesheets="@css/loginPageStyle.css" text="Books" textFill="WHITE" textOverrun="CLIP">
+            <Button fx:id="booksBtn" layoutX="245.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#bookPressed" prefWidth="110.0" style="-fx-background-color: #7a0052;" stylesheets="@../Controllers/css/loginPageStyle.css" text="Books" textFill="WHITE" textOverrun="CLIP">
                <font>
                   <Font size="15.0" />
                </font>
@@ -58,11 +58,6 @@
                   <ImageView fx:id="backIcon" fitHeight="25.0" fitWidth="30.0" layoutX="8.0" layoutY="368.0" onMouseClicked="#backIconPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/back.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="searchicon" fitHeight="20.0" fitWidth="20.0" layoutX="576.0" layoutY="10.0" onMouseClicked="#search" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/search.png" />
                      </image>
                   </ImageView>
                   <TextField fx:id="title" layoutX="6.0" layoutY="7.0" prefHeight="26.0" prefWidth="190.0" promptText="Title" style="-fx-border-color: #7a0052;" />
@@ -87,6 +82,11 @@
                      </image>
                   </ImageView>
                   <Button fx:id="noneBtn" layoutX="481.0" layoutY="368.0" mnemonicParsing="false" style="-fx-background-color: #fff;" />
+                  <ImageView fx:id="search" fitHeight="20.0" fitWidth="20.0" layoutX="577.0" layoutY="11.0" onMouseClicked="#search" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/search.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </children>

@@ -1,8 +1,5 @@
 package Controllers;
 
-import DB.BookDB;
-import DB.Constant;
-import Model.Books;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -14,7 +11,7 @@ import javafx.scene.layout.Pane;
 
 import java.sql.SQLException;
 
-import static DB.BookDB.bookList;
+import static Controllers.BookDB.bookList;
 
 public class UserPanelController extends Methods {
 
@@ -32,8 +29,9 @@ public class UserPanelController extends Methods {
     private Pane bookPane;
     @FXML
     private ImageView backIcon;
+
     @FXML
-    private ImageView searchicon;
+    private ImageView search;
     @FXML
     private TextField title;
     @FXML
@@ -79,14 +77,14 @@ public class UserPanelController extends Methods {
 
     @FXML
     void backPressed(MouseEvent event) {
-        openWindow(noneBtn,"/fxml/loginPage.fxml");
+        openWindow(noneBtn, "/fxml/loginPage.fxml");
     }
 
     @FXML
     void bookPressed(MouseEvent event) throws SQLException, ClassNotFoundException {
         bookPane.toFront();
         BookDB bookDB = new BookDB();
-        bookList = bookDB.getBooks();
+        bookList = BookDB.getBooks();
         showBooks(bookList);
     }
 
@@ -94,7 +92,6 @@ public class UserPanelController extends Methods {
     void infoIconPressed(MouseEvent event) {
         infoPane.toFront();
     }
-
     @FXML
     void infoPressed(MouseEvent event) {
         infoPane.toFront();
@@ -107,7 +104,7 @@ public class UserPanelController extends Methods {
             books=BookDB.getBooks();
         }
         else if(!title.getText().isEmpty() && author.getText().isEmpty() && subject.getText().isEmpty()) {
-            books = BookDB.search(Constant.TITLE, title.getText().trim());
+            books=BookDB.search(Constant.TITLE,title.getText().trim());
         }
         else if(title.getText().isEmpty() && !author.getText().isEmpty() && subject.getText().isEmpty()){
             books = BookDB.search(Constant.AUTHOR, author.getText().trim());
@@ -129,4 +126,5 @@ public class UserPanelController extends Methods {
         }
         showBooks(books);
     }
+
 }

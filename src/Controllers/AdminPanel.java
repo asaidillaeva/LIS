@@ -1,8 +1,5 @@
 package Controllers;
 
-import DB.BookDB;
-import DB.Constant;
-import Model.Books;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,8 +9,8 @@ import javafx.scene.layout.Pane;
 
 import java.sql.SQLException;
 
-import static DB.BookDB.bookList;
-import static DB.BookDB.remove;
+import static Controllers.BookDB.bookList;
+import static Controllers.BookDB.remove;
 import static java.lang.Integer.parseInt;
 public class AdminPanel extends Methods {
     @FXML
@@ -84,6 +81,12 @@ public class AdminPanel extends Methods {
             int n = parseInt(numEditText.getText());
             Books book = new Books(t,a,e,n, s);
             bookDB.addBook(book);
+
+            titleEditText.clear();
+            authorEditText.clear();
+            editionEditText.clear();
+            subjectEditText.clear();
+            numEditText.clear();
         });
     }
     public void showBooks(ObservableList<Books> books){
@@ -165,6 +168,7 @@ public class AdminPanel extends Methods {
         Books book = new Books(t,a,e,n,s);
         remove(book);
     }
+
     @FXML
     void searchBook(MouseEvent event) throws SQLException, ClassNotFoundException {
         ObservableList<Books> books;

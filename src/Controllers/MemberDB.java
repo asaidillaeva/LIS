@@ -1,6 +1,4 @@
-package DB;
-
-import Model.Member;
+package Controllers;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

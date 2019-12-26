@@ -1,4 +1,4 @@
-package Model;
+package Controllers;
 
 public class Books {
     private Integer bookId;
@@ -14,6 +14,8 @@ public class Books {
         this.edition = edition;
         this.subject = subject;
         this.numOfBook = numOfBook;
+
+
     }
 
     public Books() {
@@ -49,33 +51,23 @@ public class Books {
         return numOfBook;
     }
 
-    public void removeFromCatalogue(){
-
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
-    public void addToCatalogue(){
-
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void displayBookDetails(){
-
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public void updateStatus(){
-
+    public void setEdition(String edition) {
+        this.edition = edition;
     }
 
-    public void addNewBooks(){
-
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
-
-    public void deleteBook(){
-
-    }
-
-    public void searchBook(){
-
-    }
-
-
 }

@@ -1,4 +1,4 @@
-package DB;
+package Controllers;
 
 public class Constant {
     public static  final String USER_TABLE = "tblUsers";
