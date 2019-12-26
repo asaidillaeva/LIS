@@ -1,5 +1,6 @@
 package Controllers;
 
+import Model.Books;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

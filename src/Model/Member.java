@@ -1,4 +1,4 @@
-package Controllers;
+package Model;
 
 public class Member {
     private int memberId;
@@ -6,7 +6,7 @@ public class Member {
     private String lastName;
     private String username;
     private String password;
-    private int noBooksIssued;
+    private int noBooksIssued = 10;
     private final int  MaxLimitBooks = 20;
     private String address;
     private String phoneNumber;

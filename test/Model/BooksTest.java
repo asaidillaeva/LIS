@@ -1,4 +1,4 @@
-package Controllers;
+package Model;
 
 import org.junit.Test;
 
@@ -8,12 +8,19 @@ public class BooksTest {
 
     Books book = new Books("Miracle", "John Green","litress", 2,"Fantasy");
     @Test
+    public void testClassName(){
+        assertEquals("Books",book.getClass().getSimpleName());
+    }
+    @Test
+    public void testPackageName(){
+        assertEquals("Model",book.getClass().getPackageName());
+    }
+
+    @Test
     public void setNumOfBook() {
         book.setNumOfBook(9);
         assertEquals(9,book.getNumOfBook(),0.0);
-
     }
-
     @Test
     public void getTitle() {
         assertEquals("Miracle",book.getTitle());

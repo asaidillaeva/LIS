@@ -1,5 +1,6 @@
 package Controllers;
 
+import Model.Books;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
